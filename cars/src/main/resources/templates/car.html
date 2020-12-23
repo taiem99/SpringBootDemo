@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text = "${cars.model}"></title>
+</head>
+<body>
+    <h1 th:text = "${cars.model}"></h1>
+    <img th:src = "${'/'+cars.photo}">
+   
+    <p>
+        Manufacturer: <strong th:text = "${cars.manufacturer}"></strong> <br>
+        Price: <strong th:text = "${cars.price}"></strong> <br>
+        Sales: <strong th:text = "${cars.sales}"></strong>
+    </p>
+    <a th:href="@{/cars/edit/{id}(id = ${cars.id})}">Edit <span th:text = "${cars.model}"></span></a> 
+    <a th:href="@{/cars/delete/{id}(id = ${cars.id})}">Delete</a>
+   
+
+</body>
+</html>

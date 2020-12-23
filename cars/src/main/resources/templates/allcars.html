@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List car</title>
+</head>
+<body>
+    <h1>List car</h1>
+    <div>
+        <a href="/cars">Home</a>
+        <a href="/cars/add">Add</a>
+    </div>
+    
+    <div th:each = "car: ${cars}">
+        <a th:href="@{/cars/{id}(id = ${car.id})}"> <strong th:text = "${car.model}"></strong>
+        <img th:src="${car.photo}">
+        </a>
+    </div>
+</body>
+</html>

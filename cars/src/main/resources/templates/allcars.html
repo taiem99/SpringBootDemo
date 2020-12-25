@@ -10,11 +10,12 @@
     <div>
         <a href="/cars">Home</a>
         <a href="/cars/add">Add</a>
+        <a href="/cars/search">Search</a>
     </div>
     
     <div th:each = "car: ${cars}">
         <a th:href="@{/cars/{id}(id = ${car.id})}"> <strong th:text = "${car.model}"></strong>
-        <img th:src="${car.photo}">
+        <img th:src="'/' + ${car.photo}">
         </a>
     </div>
 </body>

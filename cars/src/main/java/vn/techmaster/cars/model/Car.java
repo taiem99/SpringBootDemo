@@ -25,5 +25,10 @@ public class Car {
                 + price + ", sales=" + sales + "]";
     }
 
+    public boolean mathWithKeywords(String keyword){
+        String searchKeys = keyword.toLowerCase();
+        return model.toLowerCase().contains(searchKeys) || manufacturer.toLowerCase().contains(searchKeys)
+        || searchKeys.contains(model.toLowerCase()) || searchKeys.contains(manufacturer.toLowerCase());
+    }
     
 }

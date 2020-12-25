@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -86,6 +87,11 @@ public class CarDao extends Dao<Car> {
             System.out.println(e); 
           }
 
+    }
+
+    @Override
+    public List<Car> searchByKeywords(String keywords) {
+        return collections.stream().filter(car -> car.mathWithKeywords(keywords)).collect(Collectors.toList());
     }
     
 }

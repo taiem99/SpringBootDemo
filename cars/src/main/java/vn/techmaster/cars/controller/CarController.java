@@ -7,12 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import vn.techmaster.cars.model.Car;
 import vn.techmaster.cars.repository.CarDao;
+import vn.techmaster.cars.request.DeleteRequest;
+import vn.techmaster.cars.request.SearchRequest;
 @RequestMapping("/cars")
 @Controller
 public class CarController {
@@ -31,8 +34,7 @@ public class CarController {
         if(car.isPresent()){
             model.addAttribute("cars", car.get());
         }
-        return "car";
-    }
+        return "car";    }
 
     @GetMapping("/add")
     public String add(Model model){
@@ -63,9 +65,23 @@ public class CarController {
         return "form";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteById(@PathVariable("id") int id){
-        carDao.deleteById(id);
+    @PostMapping("/delete")
+    public String deleteById(@ModelAttribute DeleteRequest request, BindingResult result){
+        if(!result.hasErrors()){
+            carDao.deleteById(request.getId());
+        }
         return "redirect:/cars";
+    }
+    @GetMapping("/search")
+    public String searchForm(Model model){
+        model.addAttribute("searchrequest", new SearchRequest());
+        return "search";
+    }
+    @PostMapping("/search")
+    public String searchByKeyword(SearchRequest request, BindingResult result, Model model){
+        if(!result.hasFieldErrors()){
+            model.addAttribute("cars", carDao.searchByKeywords(request.getKeyword()));
+        }
+        return "allcars";
     }
 }

@@ -7,15 +7,17 @@
 </head>
 <body>
     <h1 th:text = "${cars.model}"></h1>
-    <img th:src = "${'/'+cars.photo}">
-   
-    <p>
-        Manufacturer: <strong th:text = "${cars.manufacturer}"></strong> <br>
-        Price: <strong th:text = "${cars.price}"></strong> <br>
-        Sales: <strong th:text = "${cars.sales}"></strong>
-    </p>
-    <a th:href="@{/cars/edit/{id}(id = ${cars.id})}">Edit <span th:text = "${cars.model}"></span></a> 
-    <a th:href="@{/cars/delete/{id}(id = ${cars.id})}">Delete</a>
+    <form action="#" th:action="@{/cars/delete}"  th:object ="${cars}" method = "post" novalidate = "novalidate">
+        <input type="hidden" th:field="*{id}">
+        <img th:src = "${'/'+cars.photo}">
+        <p>
+            Manufacturer: <strong th:text = "${cars.manufacturer}"></strong> <br>
+            Price: <strong th:text = "${cars.price}"></strong> <br>
+            Sales: <strong th:text = "${cars.sales}"></strong>
+        </p>
+        <a th:href="@{/cars/edit/{id}(id = ${cars.id})}">Edit <span th:text = "${cars.model}"></span></a> 
+        <button type="submit">Delete</button>
+    </form>
    
 
 </body>

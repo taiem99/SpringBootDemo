@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List cities</title>
+</head>
+<body>
+    <h1>List cities</h1>
+    <ul th:each ="city: ${cities}">
+        <li th:text = "${city}"></li>
+    </ul>
+</body>
+</html>

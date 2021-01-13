@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find 5 cities have most specific job</title>
+</head>
+<body>
+    <h1>Find 5 cities have most specific job</h1>
+    <form th:action="@{/find5citiesHaveMostSpecificJob}" method="post">
+        <input type="text" placeholder="Job title" name = "job">
+        <button>result</button>
+    </form>
+
+    <div th:each = "job: ${listJob}">
+        <span th:text = "${job}"></span>
+    </div>
+</body>
+</html>

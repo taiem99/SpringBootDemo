@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add new Comment</title>
+</head>
+<body>
+    <form th:action="@{/comment/save}" th:object = "*{comment}" method="post">
+        <input type="hidden" th:field = "*{id}">
+        <label for="content">Content</label>
+        <input type="text" th:field = "*{content}">
+    </form>
+</body>
+</html>

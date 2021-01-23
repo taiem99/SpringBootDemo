@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write new post</title>
+</head>
+<body>
+    <h1 th:text ="${user.fullname}"></h1>
+    <form th:action="@{/posts/save}" th:object = "${post}" method="post">
+        <span th:text = "*{lastUpdate}"></span> <br>
+        <input type="hidden" th:field = "*{id}">
+        <label for="title">Title</label> <br>
+        <input type="text" th:field = "*{title}"> <br>  
+        <label for="content">Content</label> <br>
+        <input type="text" th:field = "*{content}">
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

@@ -5,7 +5,7 @@
     access http://localhost:2410/api
 1. GET
     get all books: http://localhost:2410/api/books
-![](image/api_get.jpg)
+![](image/api-get.jpg)
 2. GET BY ID
     get a book: http://localhost:2410/api/3
 ![](image/api_getbyid.jpg)

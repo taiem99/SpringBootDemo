@@ -1,39 +1,41 @@
 package vn.techmaster.blogs.controller;
 
-import java.net.CookieManager;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import vn.techmaster.blogs.entity.Post;
-import vn.techmaster.blogs.repository.CommentRepository;
-import vn.techmaster.blogs.repository.PostRepository;
-import vn.techmaster.blogs.repository.UserRepository;
+import vn.techmaster.blogs.exception.PostException;
+import vn.techmaster.blogs.model.dto.UserInfo;
+import vn.techmaster.blogs.request.CommentRequest;
+import vn.techmaster.blogs.service.AuthenService;
+import vn.techmaster.blogs.service.PostService;
 
 @Controller
-@RequestMapping("/comment")
 public class CommentController {
+    
     @Autowired
-    CookieManager cookieManager;
+    private AuthenService authenService;
+    @Autowired
+    private PostService postService;
 
-    @Autowired
-    CommentRepository commentRepo;
-    @Autowired
-    UserRepository userRepo;
-    @Autowired
-    PostRepository postRepo;
+    @PostMapping("/comment")
+    public String handlePostComment(
+        @ModelAttribute CommentRequest commentRequest,
+        HttpServletRequest request){
 
-    @GetMapping
-    public String getAddComment(Long id, Model model, HttpServletRequest request){
-        model.addAttribute("postId", id);
-        model.addAttribute("comment", new Post());
-        return "comment";
+            UserInfo user = authenService.getLoggedUser(request);
+            if (user != null){
+                try{
+                    postService.addComment(commentRequest, user.getId());
+                } catch (PostException e){
+                    e.printStackTrace();
+                }
+                return "redirect:/post/" + commentRequest.getPost_id();
+            } else {
+                return Route.HOME;
+            }
     }
-
-
 }

@@ -3,27 +3,34 @@ package vn.techmaster.blogs.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
 
-import vn.techmaster.blogs.entity.Post;
-import vn.techmaster.blogs.entity.User;
+import vn.techmaster.blogs.exception.PostException;
+import vn.techmaster.blogs.model.entity.Post;
+import vn.techmaster.blogs.model.entity.Tag;
+import vn.techmaster.blogs.model.entity.User;
+import vn.techmaster.blogs.request.CommentRequest;
+import vn.techmaster.blogs.request.PostRequest;
 
-@Service
-public class PostService implements PostServiceInterface {
+public interface PostService {
+    public List<Post> findAll();
+    public Page<Post> findAllPaging(int page, int pageSize);
 
-    @Override
-	public List<Post> getAllPostOfUser(User user) {
-		return user.getPosts();
-	}
+    public List<Post> getAllPostOfUser(User user);
+    public List<Post> getAllPostsByUserId(Long user_id);
 
-	@Override
-	public Post findByUserAndId(User user, Long id) {
-		List<Post> posts = getAllPostOfUser(user);
-		Optional<Post> post = posts.stream().filter(p -> p.getId() == id).findFirst();
-		if(post != null){
-			return post.get();
-		}
-		return null;
-	}
+    public void createNewPost(PostRequest postRequest) throws PostException;
+    public Optional<Post> findById(Long id);
+    public void deletePostById(Long id);
+    public void updatePost(PostRequest postRequest) throws PostException;
+
+    public void addComment(CommentRequest commentRequest, Long user_id) throws PostException;
     
+    public List<Tag> getAllTags();
+
+    public List<Post> searchPost(String term, int limit, int offset);
+
+    public void reindexFullText();
+
+    public void generateSampleData();
 }

@@ -1,20 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Write new post</title>
-</head>
+<head th:replace="layout :: head"></head>
 <body>
-    <h1 th:text ="${user.fullname}"></h1>
-    <form th:action="@{/posts/save}" th:object = "${post}" method="post">
-        <span th:text = "*{lastUpdate}"></span> <br>
-        <input type="hidden" th:field = "*{id}">
-        <label for="title">Title</label> <br>
-        <input type="text" th:field = "*{title}"> <br>  
-        <label for="content">Content</label> <br>
-        <input type="text" th:field = "*{content}">
-        <button type="submit">Save</button>
-    </form>
+  <div class="container">
+  <!-- <menu th:replace="layout :: menu(title=${post.id > 0 ? 'Edit a post' : 'Create new post'})"></menu> -->
+    <form th:action="@{/post}" th:object="${post}" method="post">
+      <input type="hidden" th:field="*{id}"/>
+      <input type="hidden" th:field="*{user_id}"/>
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" th:field="*{title}" class="form-control" id="title" placeholder="Title of your post">
+        <p class="alert alert-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">title Error></p>
+      </div>
+      <div th:unless="${post.id > 0}" class="form-check d-inline-flex" th:each="tag : ${allTags}">
+        <input class="form-check-input me-2" type="checkbox" 
+        th:value="${tag.id}"
+        name="tags">
+        <label class="form-check-label me-4" for="${tag.id}" th:text="${tag.name}"></label>
+      </div>
+      
+      <div th:if="${post.id > 0}" class="form-check d-inline-flex" th:each="tag : ${allTags}">
+        <input class="form-check-input me-2" type="checkbox" 
+        th:value="${tag.id}"
+        name="tags"
+        th:checked="${#lists.contains(post.tags, tag)}">
+        <label class="form-check-label me-4" for="${tag.id}" th:text="${tag.name}"></label>
+      </div>
+    
+      <div class="mb-3 mt-3">
+        <label for="content" class="form-label">Content</label>
+        <textarea class="form-control" th:field="*{content}" id="content" rows="10" cols="70"></textarea>
+        <p class="alert alert-danger" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Content Error></p>
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>  
+    </form>    
+  </div>
 </body>
 </html>

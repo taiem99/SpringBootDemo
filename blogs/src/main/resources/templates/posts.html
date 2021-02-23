@@ -1,22 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<head th:replace="layout :: head"></head>
 <body>
-    <h1 th:text = "${user.fullname}">All Posts</h1>
-    <a href="/posts/new-post"> write new post</a>
-    <a href="/logout">logout</a>
-    <br>
-    <br>
-    <div th:each = "post:${posts}">
-        <ul>
-            <h3 th:text = "${post.title}"></h3>
-            <p th:text = "${post.content}"></p>
-            <a th:href="@{/posts/{id}(id=${post.id})}"><span>Edit</span></a>
-        </ul>
-    </div>
+  <div class="container">
+    <menu th:replace="layout :: menu(title=${user} ? ${user.fullname} + '\'s micro blog': 'Home page')"></menu>
+    <ul>
+      <li th:each="post: ${posts}">
+        <a th:href="@{/post/{id}(id=${post.id})}"><strong th:text="${post.title}"></strong></a>
+      </li>
+    </ul>
+  </div>
 </body>
 </html>

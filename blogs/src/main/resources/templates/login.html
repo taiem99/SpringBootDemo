@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Micro Blog - Login</title>
-</head>
+<head th:replace="layout :: head"></head>
 <body>
-    <h1>Login</h1>
-
-    <form th:action="@{/login}" th:object = "${loginRequest}" method = "post">
-        <label for="pass">Email</label>
-        <input type="text" placeholder="Email" th:field = "*{email}">
-        <br>    
-
-        <label for="pass">Password</label>
-        <input type="text" placeholder="Password" th:field = "*{password}">
-
-        <button type="submit">Login</button>
-    </form>
-    <p th:text = "*{errorMessage}"></p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <h1>Login</h1>
+      <form th:action="@{/login}" th:object="${loginRequest}" method="post">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" placeholder="email" th:field="*{email}" class="form-control" id="email"/>
+        </div>
+        <div class="mb-3">
+          <label for="pass" class="form-label">Password</label>
+          <input type="password" placeholder="Password" th:field="*{password}" class="form-control" id="pass"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      <p th:text="*{errorMessage}">Error Message</p>
+    </div>
+  </div>
+</div>
 </body>
 </html>

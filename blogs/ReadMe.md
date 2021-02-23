@@ -1,10 +1,10 @@
-#MICRO BLOG PROJECT DEMO
+##MICRO BLOG PROJECT DEMO##
 Pull code and run
 http://localhost:2410/
 ![](blog.jpg)
 
-**Account**
+**Account (user.sql)**
 1. bob@gmail.com
 2. duy@gmail.com
 3. alice@gmail.com
-... [](user.sql)
+4. ...
